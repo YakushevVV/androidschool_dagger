@@ -10,11 +10,7 @@ import java.util.List;
 import io.reactivex.android.schedulers.AndroidSchedulers;
 import io.reactivex.disposables.CompositeDisposable;
 import io.reactivex.schedulers.Schedulers;
-import retrofit2.Retrofit;
-import retrofit2.adapter.rxjava2.RxJava2CallAdapterFactory;
-import retrofit2.converter.moshi.MoshiConverterFactory;
-import ru.sberbankschool.android.data.JsonPlaceholderApi;
-import ru.sberbankschool.android.data.RetrofitPostRepository;
+import ru.sberbankschool.android.di.DaggerAppComponent;
 import ru.sberbankschool.android.domain.PostInteractor;
 import ru.sberbankschool.android.domain.model.Post;
 
@@ -32,14 +28,8 @@ public class MainViewModel extends ViewModel {
     @NonNull
     private final MutableLiveData<String> mErrorData = new MutableLiveData<>();
 
-    public MainViewModel() {
-        final Retrofit retrofit = new Retrofit.Builder()
-                .baseUrl("https://jsonplaceholder.typicode.com")
-                .addConverterFactory(MoshiConverterFactory.create())
-                .addCallAdapterFactory(RxJava2CallAdapterFactory.create())
-                .build();
-        JsonPlaceholderApi placeholderApi = retrofit.create(JsonPlaceholderApi.class);
-        mInteractor = new PostInteractor(new RetrofitPostRepository(placeholderApi));
+    public MainViewModel(@NonNull PostInteractor interactor) {
+        mInteractor = interactor;
     }
 
     @NonNull

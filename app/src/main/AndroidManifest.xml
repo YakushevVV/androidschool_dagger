@@ -10,7 +10,8 @@
         android:label="@string/app_name"
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
-        android:theme="@style/Theme.NetworkExample">
+        android:theme="@style/Theme.NetworkExample"
+        android:name="ru.sberbankschool.android.PostApplication">
         <activity android:name="ru.sberbankschool.android.presentation.post.MainActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
